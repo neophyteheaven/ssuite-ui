@@ -1,14 +1,14 @@
 {
     "name": "neophyteheaven/ssuite-ui",
     "description": "Shared UI kit for the s-suite — canonical product registry, Blade/Livewire components, and a Tailwind preset. Built once, consumed by every SaaS app.",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "type": "library",
     "license": "proprietary",
     "keywords": ["s-suite", "laravel", "blade", "tailwind", "ui"],
     "require": {
         "php": "^8.2",
-        "illuminate/support": "^10.0|^11.0|^12.0",
-        "illuminate/view": "^10.0|^11.0|^12.0"
+        "illuminate/support": "^10.0|^11.0|^12.0|^13.0",
+        "illuminate/view": "^10.0|^11.0|^12.0|^13.0"
     },
     "autoload": {
         "psr-4": {
