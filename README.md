@@ -15,19 +15,19 @@ What it provides:
 
 ```json
 "repositories": [
-    { "type": "vcs", "url": "git@github.com:oneorzerotechnologies/ssuite-ui.git" }
+    { "type": "vcs", "url": "git@github.com:neophyteheaven/ssuite-ui.git" }
 ],
-"require": { "oneorzerotechnologies/ssuite-ui": "^0.1" }
+"require": { "neophyteheaven/ssuite-ui": "^0.1" }
 ```
 
 `tailwind.config.js`:
 
 ```js
 module.exports = {
-  presets: [require('./vendor/oneorzerotechnologies/ssuite-ui/tailwind-preset')],
+  presets: [require('./vendor/neophyteheaven/ssuite-ui/tailwind-preset')],
   content: [
     './resources/views/**/*.blade.php',
-    './vendor/oneorzerotechnologies/ssuite-ui/resources/views/**/*.blade.php',
+    './vendor/neophyteheaven/ssuite-ui/resources/views/**/*.blade.php',
   ],
 };
 ```

@@ -6,7 +6,7 @@
  * own :root to theme itself; the utility names never change.
  *
  * Import in an app's resources/css/app.css if you want a shared default theme:
- *   @import '../../vendor/oneorzerotechnologies/ssuite-ui/resources/css/base.css';
+ *   @import '../../vendor/neophyteheaven/ssuite-ui/resources/css/base.css';
  */
 :root {
     --color-brand-50: #eef2ff;

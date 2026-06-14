@@ -12,8 +12,8 @@
  * brand block and point tailwind.config at this preset.
  *
  * Usage in an app's tailwind.config.js:
- *   presets: [require('./vendor/oneorzerotechnologies/ssuite-ui/tailwind-preset')],
- *   content: [ ...app globs..., './vendor/oneorzerotechnologies/ssuite-ui/resources/views/**\/*.blade.php' ],
+ *   presets: [require('./vendor/neophyteheaven/ssuite-ui/tailwind-preset')],
+ *   content: [ ...app globs..., './vendor/neophyteheaven/ssuite-ui/resources/views/**\/*.blade.php' ],
  */
 const DEFAULTS = {
     50: '#eef2ff', 100: '#e0e7ff', 200: '#c7d2fe', 300: '#a5b4fc', 400: '#818cf8',
@@ -42,6 +42,6 @@ module.exports = {
     ],
     // Compile utility classes used inside the package's own components.
     content: [
-        './vendor/oneorzerotechnologies/ssuite-ui/resources/views/**/*.blade.php',
+        './vendor/neophyteheaven/ssuite-ui/resources/views/**/*.blade.php',
     ],
 };

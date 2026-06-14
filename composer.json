@@ -1,5 +1,5 @@
 {
-    "name": "oneorzerotechnologies/ssuite-ui",
+    "name": "neophyteheaven/ssuite-ui",
     "description": "Shared UI kit for the s-suite — canonical product registry, Blade/Livewire components, and a Tailwind preset. Built once, consumed by every SaaS app.",
     "version": "0.1.0",
     "type": "library",
