@@ -1,0 +1,26 @@
+{
+    "name": "oneorzerotechnologies/ssuite-ui",
+    "description": "Shared UI kit for the s-suite — canonical product registry, Blade/Livewire components, and a Tailwind preset. Built once, consumed by every SaaS app.",
+    "type": "library",
+    "license": "proprietary",
+    "keywords": ["s-suite", "laravel", "blade", "tailwind", "ui"],
+    "require": {
+        "php": "^8.2",
+        "illuminate/support": "^10.0|^11.0|^12.0",
+        "illuminate/view": "^10.0|^11.0|^12.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "OneOrZero\\SsuiteUi\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "OneOrZero\\SsuiteUi\\SsuiteUiServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

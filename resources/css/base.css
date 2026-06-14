@@ -1,0 +1,22 @@
+/*
+ * s-suite shared base CSS.
+ *
+ * Provides DEFAULT brand token values (space-separated RGB triplets consumed by
+ * the Tailwind preset's rgb(var(--color-brand-…)) scale). Each app overrides
+ * these in its own app.css to theme itself; the utility names never change.
+ *
+ * Import in an app's resources/css/app.css BEFORE @tailwind utilities:
+ *   @import '../../vendor/oneorzerotechnologies/ssuite-ui/resources/css/base.css';
+ */
+:root {
+    --color-brand-50: 238 242 255;
+    --color-brand-100: 224 231 255;
+    --color-brand-200: 199 210 254;
+    --color-brand-300: 165 180 252;
+    --color-brand-400: 129 140 248;
+    --color-brand-500: 99 102 241;
+    --color-brand-600: 79 70 229;
+    --color-brand-700: 67 56 202;
+    --color-brand-800: 55 48 163;
+    --color-brand-900: 49 46 129;
+}
