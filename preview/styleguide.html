@@ -80,8 +80,10 @@
   .ts-dropdown, .ts-dropdown .ts-dropdown-content { border-radius: 0.5rem; }
   .ts-dropdown { overflow: hidden; }
 
-  /* ---- DataTables: brand-style the "Show entries" dropdown + "Search" input
-       (canonical CSS — mirrored in each app shell next to jquery.dataTables.min.css) ---- */
+  /* ===== DataTables: canonical admin-grid styling (mirrors each app's
+       resources/css/app.css + the layout control CSS). Brand-tinted header,
+       row hover, length/search controls, info + pagination. ===== */
+  /* length + search controls */
   .dataTables_wrapper .dataTables_length,
   .dataTables_wrapper .dataTables_filter { margin-bottom: 1rem; font-size: .875rem; color: #6b7280; }
   .dataTables_wrapper .dataTables_filter { text-align: right; }
@@ -98,24 +100,47 @@
     outline: none; border-color: var(--color-brand-600, #4f46e5);
     box-shadow: 0 0 0 1px var(--color-brand-600, #4f46e5);
   }
-  /* info + pagination tuned to the brand */
+  /* table chrome */
+  table.dataTable { width: 100% !important; border-collapse: collapse; font-size: .875rem; color: #6b7280; }
+  table.dataTable thead { text-transform: uppercase; font-size: .75rem; letter-spacing: .05em;
+    color: var(--color-brand-700, #4338ca); background-color: var(--color-brand-50, #eef2ff); }
+  table.dataTable thead th { padding: .75rem 1.5rem; font-weight: 500; text-align: left; border-bottom: 1px solid #e5e7eb; }
+  table.dataTable tbody tr { background: #fff; border-bottom: 1px solid #e5e7eb; transition: background-color .12s ease; }
+  table.dataTable tbody tr:hover { background-color: var(--color-brand-50, #eef2ff); }
+  table.dataTable tbody td { padding: 1rem 1.5rem; border-bottom: 1px solid #f3f4f6; color: #374151; vertical-align: middle; }
+  /* sort arrows (replace the default sprite arrows) */
+  table.dataTable thead th.sorting, table.dataTable thead th.sorting_asc, table.dataTable thead th.sorting_desc { cursor: pointer; position: relative; }
+  table.dataTable thead th.sorting::before, table.dataTable thead th.sorting::after,
+  table.dataTable thead th.sorting_asc::before, table.dataTable thead th.sorting_asc::after,
+  table.dataTable thead th.sorting_desc::before, table.dataTable thead th.sorting_desc::after { display: none; }
+  table.dataTable thead th.sorting::after,
+  table.dataTable thead th.sorting_asc::after,
+  table.dataTable thead th.sorting_desc::after {
+    display: block; position: absolute; right: .9rem; top: 50%; transform: translateY(-50%); font-size: .85em; line-height: 1;
+  }
+  table.dataTable thead th.sorting::after { content: "\2195"; opacity: .35; }
+  table.dataTable thead th.sorting_asc::after { content: "\2191"; }
+  table.dataTable thead th.sorting_desc::after { content: "\2193"; }
+  /* info + pagination */
   .dataTables_wrapper .dataTables_info { font-size: .8125rem; color: #6b7280; padding-top: 1rem; }
   .dataTables_wrapper .dataTables_paginate { padding-top: .75rem; }
   .dataTables_wrapper .dataTables_paginate .paginate_button { border-radius: .5rem !important; font-size: .8125rem; }
   .dataTables_wrapper .dataTables_paginate .paginate_button.current,
   .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-    background: var(--color-brand-600, #4f46e5) !important; border-color: var(--color-brand-600, #4f46e5) !important;
-    color: #fff !important;
+    background: var(--color-brand-600, #4f46e5) !important; border-color: var(--color-brand-600, #4f46e5) !important; color: #fff !important;
   }
-  table.dataTable thead th { font-size: .75rem; text-transform: uppercase; letter-spacing: .05em; color: #6b7280; }
-  /* Dark mode (the preview toggles .dark on a wrapper div) */
+  /* dark mode (the preview toggles .dark on a wrapper div) */
   .dark .dataTables_wrapper .dataTables_length,
   .dark .dataTables_wrapper .dataTables_filter,
   .dark .dataTables_wrapper .dataTables_info { color: #9ca3af; }
   .dark .dataTables_wrapper .dataTables_length select,
   .dark .dataTables_wrapper .dataTables_filter input[type="search"] { background-color: #111827; border-color: #374151; color: #f3f4f6; }
-  .dark table.dataTable thead th { color: #9ca3af; border-color: #374151; }
-  .dark table.dataTable tbody td { color: #e5e7eb; border-color: #1f2937; }
+  .dark table.dataTable { color: #9ca3af; }
+  .dark table.dataTable thead { color: var(--color-brand-300, #a5b4fc); background-color: var(--color-brand-900, #312e81); }
+  .dark table.dataTable thead th { border-color: #374151; }
+  .dark table.dataTable tbody tr { background: #1f2937; border-color: #374151; }
+  .dark table.dataTable tbody tr:hover { background-color: rgba(49,46,129,.30); }
+  .dark table.dataTable tbody td { color: #e5e7eb; border-color: #374151; }
   .dark .dataTables_wrapper .dataTables_paginate .paginate_button { color: #d1d5db !important; }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tom-select/2.3.1/js/tom-select.complete.min.js"></script>
@@ -400,26 +425,86 @@
       <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">The admin grid (Yajra / DataTables). The <code>Show entries</code> dropdown and <code>Search</code> box are brand-styled to match form inputs; the active page pill uses <code>--color-brand-600</code>. App shells load <code>jquery.dataTables.min.css/js</code> + this control CSS.</p>
     </div>
     <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
-      <table id="sg-datatable" class="display w-full" style="width:100%">
+      <table id="sg-datatable" class="w-full" style="width:100%">
         <thead>
-          <tr><th>#</th><th>Name</th><th>Email</th><th>Role</th><th>Status</th></tr>
+          <tr><th>#</th><th>Name</th><th>Email</th><th>Plan</th><th>Roles</th><th>Status</th><th>Action</th></tr>
         </thead>
         <tbody>
-          <tr><td>1</td><td>One or Zero Technologies</td><td>service@oneorzero.com.my</td><td>Administrator</td><td>Active</td></tr>
-          <tr><td>2</td><td>Khalifah Khalik</td><td>khalil@beloya2u.com</td><td>Site Admin</td><td>Active</td></tr>
-          <tr><td>3</td><td>Mohammad Iskandar</td><td>iskandar@example.my</td><td>Site Admin</td><td>Active</td></tr>
-          <tr><td>4</td><td>Panda Ong</td><td>pandaong79@gmail.com</td><td>Site Admin</td><td>Active</td></tr>
-          <tr><td>5</td><td>Sharks Sharks</td><td>sharks88@gmail.com</td><td>Site Admin</td><td>Active</td></tr>
-          <tr><td>6</td><td>Panda Online</td><td>pandaonline153@gmail.com</td><td>Member</td><td>Inactive</td></tr>
-          <tr><td>7</td><td>Aisyah Rahman</td><td>aisyah@studio.my</td><td>Member</td><td>Active</td></tr>
-          <tr><td>8</td><td>Lim Wei Jie</td><td>weijie@kedai.my</td><td>Member</td><td>Active</td></tr>
+          <tr>
+            <td>1</td><td>One or Zero Technologies</td><td>service@oneorzero.com.my</td>
+            <td><span class="text-gray-400">N/A</span></td>
+            <td><span class="px-2.5 py-0.5 inline-flex text-xs font-semibold rounded-full bg-violet-100 text-violet-700">Administrator</span></td>
+            <td><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Active</span></td>
+            <td>__ACTIONS__</td>
+          </tr>
+          <tr>
+            <td>2</td><td>Khalifah Khalik</td><td>khalil@beloya2u.com</td>
+            <td><span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-md bg-indigo-50 text-indigo-700">Free</span></td>
+            <td><span class="px-2.5 py-0.5 inline-flex text-xs font-semibold rounded-full bg-indigo-100 text-indigo-700">Site Admin</span></td>
+            <td><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Active</span></td>
+            <td>__ACTIONS__</td>
+          </tr>
+          <tr>
+            <td>3</td><td>Mohammad Iskandar Bin Rabudin</td><td>iskandar@example.my</td>
+            <td><span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-md bg-emerald-50 text-emerald-700">Pro</span></td>
+            <td><span class="px-2.5 py-0.5 inline-flex text-xs font-semibold rounded-full bg-indigo-100 text-indigo-700">Site Admin</span></td>
+            <td><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Active</span></td>
+            <td>__ACTIONS__</td>
+          </tr>
+          <tr>
+            <td>4</td><td>Panda Ong</td><td>pandaong79@gmail.com</td>
+            <td><span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-md bg-amber-50 text-amber-700">Bundle</span></td>
+            <td><span class="px-2.5 py-0.5 inline-flex text-xs font-semibold rounded-full bg-indigo-100 text-indigo-700">Site Admin</span></td>
+            <td><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Active</span></td>
+            <td>__ACTIONS__</td>
+          </tr>
+          <tr>
+            <td>5</td><td>Sharks Sharks</td><td>sharks88@gmail.com</td>
+            <td><span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-md bg-indigo-50 text-indigo-700">Free</span></td>
+            <td><span class="px-2.5 py-0.5 inline-flex text-xs font-semibold rounded-full bg-indigo-100 text-indigo-700">Site Admin</span></td>
+            <td><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Active</span></td>
+            <td>__ACTIONS__</td>
+          </tr>
+          <tr>
+            <td>6</td><td>Panda Online</td><td>pandaonline153@gmail.com</td>
+            <td><span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-md bg-indigo-50 text-indigo-700">Free</span></td>
+            <td><span class="px-2.5 py-0.5 inline-flex text-xs font-semibold rounded-full bg-gray-100 text-gray-700">Member</span></td>
+            <td><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-600">Inactive</span></td>
+            <td>__ACTIONS__</td>
+          </tr>
+          <tr>
+            <td>7</td><td>Aisyah Rahman</td><td>aisyah@studio.my</td>
+            <td><span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-md bg-emerald-50 text-emerald-700">Pro</span></td>
+            <td><span class="px-2.5 py-0.5 inline-flex text-xs font-semibold rounded-full bg-gray-100 text-gray-700">Member</span></td>
+            <td><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Active</span></td>
+            <td>__ACTIONS__</td>
+          </tr>
+          <tr>
+            <td>8</td><td>Lim Wei Jie</td><td>weijie@kedai.my</td>
+            <td><span class="text-gray-400">N/A</span></td>
+            <td><span class="px-2.5 py-0.5 inline-flex text-xs font-semibold rounded-full bg-gray-100 text-gray-700">Member</span></td>
+            <td><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Active</span></td>
+            <td>__ACTIONS__</td>
+          </tr>
         </tbody>
       </table>
     </div>
     <script>
       document.addEventListener('DOMContentLoaded', function () {
+        // Fill the repeated edit/delete action cell (kept out of the markup above for brevity).
+        var actions = '<div class="flex items-center gap-1">'
+          + '<a href="#" onclick="return false" class="text-blue-600 hover:text-blue-900 p-1 rounded-full hover:bg-blue-50" title="Edit"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></a>'
+          + '<button type="button" class="text-red-600 hover:text-red-900 p-1 rounded-full hover:bg-red-50" title="Delete"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>'
+          + '</div>';
+        document.querySelectorAll('#sg-datatable tbody td').forEach(function (td) {
+          if (td.textContent.trim() === '__ACTIONS__') td.innerHTML = actions;
+        });
         if (window.jQuery && jQuery.fn && jQuery.fn.DataTable) {
-          jQuery('#sg-datatable').DataTable({ pageLength: 5, lengthMenu: [5, 10, 25, 50] });
+          jQuery('#sg-datatable').DataTable({
+            pageLength: 5,
+            lengthMenu: [5, 10, 25, 50],
+            columnDefs: [{ orderable: false, targets: [6] }],
+          });
         }
       });
     </script>
