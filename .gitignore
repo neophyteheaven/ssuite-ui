@@ -5,3 +5,5 @@ package-lock.json
 
 # FUSE-mount artifacts (created when a file is deleted while open)
 .fuse_hidden*
+
+.DS_Store
