@@ -29,8 +29,8 @@
 </div>
 
 @once
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js" defer></script>
-    <script>
+    <script nonce="{{ $cspNonce ?? '' }}" src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js" defer></script>
+    <script nonce="{{ $cspNonce ?? '' }}">
         document.addEventListener('alpine:init', () => {
             Alpine.data('passwordStrength', (inputId) => ({
                 el: null,

@@ -48,8 +48,8 @@
     .dark .ts-dropdown { background: #1f2937; border-color: #374151; color: #f3f4f6; }
     .dark .ts-dropdown .active { background: rgba(99,102,241,.18); color: #e0e7ff; }
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tom-select/2.3.1/js/tom-select.complete.min.js"></script>
-<script>
+<script nonce="{{ $cspNonce ?? '' }}" src="https://cdnjs.cloudflare.com/ajax/libs/tom-select/2.3.1/js/tom-select.complete.min.js"></script>
+<script nonce="{{ $cspNonce ?? '' }}">
     (function () {
         function initTomSelects() {
             if (typeof TomSelect === 'undefined') return;
